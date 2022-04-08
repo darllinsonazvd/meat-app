@@ -9,10 +9,9 @@
   <div class="box-body">
 
     <div *ngIf="!items().length">
-      <p class="text-center">
-        Seu carrinho está vazio!
-      </p>
+      <p class="text-center">Seu carrinho está vazio!</p>
     </div>
+
     <div class="table-responsive" *ngIf="items().length">
         <table class="table">
           <tbody>
@@ -25,6 +24,7 @@
           </tr>
           <tr>
             <th>Total:</th>
+
             <td class="text-right">{{total() | currency: 'BRL': true}}</td>
           </tr>
         </tbody></table>

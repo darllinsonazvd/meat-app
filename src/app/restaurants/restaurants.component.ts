@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import {trigger, state, style, transition, animate} from '@angular/animations'
-import {FormBuilder, FormControl, FormGroup} from '@angular/forms'
+import { trigger, state, style, transition, animate } from '@angular/animations';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 
-import {Restaurant} from './restaurant/restaurant.model'
-import {RestaurantsService} from './restaurants.service'
+import { Restaurant } from './restaurant/restaurant.model';
+import { RestaurantsService } from './restaurants.service';
 
 import 'rxjs/add/operator/switchMap'
 import 'rxjs/add/operator/do'
@@ -11,13 +11,15 @@ import 'rxjs/add/operator/debounceTime'
 import 'rxjs/add/operator/distinctUntilChanged'
 import 'rxjs/add/operator/catch'
 import 'rxjs/add/observable/from'
-import {Observable} from 'rxjs/Observable'
+
+import { Observable } from 'rxjs/Observable';
+
 
 @Component({
   selector: 'mt-restaurants',
   templateUrl: './restaurants.component.html',
   animations: [
-    trigger('toggleSearch', [
+    trigger('toogleSearch', [
       state('hidden', style({
         opacity: 0,
         "max-height": "0px"
@@ -39,8 +41,7 @@ export class RestaurantsComponent implements OnInit {
   searchForm: FormGroup
   searchControl: FormControl
 
-  constructor(private restaurantsService: RestaurantsService,
-              private fb: FormBuilder) { }
+  constructor(private restaurantsService: RestaurantsService, private fb: FormBuilder) { }
 
   ngOnInit() {
 
@@ -50,19 +51,17 @@ export class RestaurantsComponent implements OnInit {
     })
 
     this.searchControl.valueChanges
-        .debounceTime(500)
-        .distinctUntilChanged()
-        .switchMap(searchTerm =>
-          this.restaurantsService
-            .restaurants(searchTerm)
-            .catch(error=>Observable.from([])))
-        .subscribe(restaurants => this.restaurants = restaurants)
-
-    this.restaurantsService.restaurants()
+      .debounceTime(500)
+      .distinctUntilChanged()
+      .switchMap(searchTerm =>
+        this.restaurantsService.restaurants(searchTerm)
+        .catch(error => Observable.from([])))
       .subscribe(restaurants => this.restaurants = restaurants)
+
+    this.restaurantsService.restaurants().subscribe(restaurants => this.restaurants = restaurants)
   }
 
-  toggleSearch(){
+  toogleSearch() {
     this.searchBarState = this.searchBarState === 'hidden' ? 'visible' : 'hidden'
   }
 

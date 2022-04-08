@@ -1,20 +1,47 @@
-# Meat - Angular Application
+<p align="center">
+  <a href="#-tecnologias">Tecnologias</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+  <a href="#-projeto">Projeto</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+  <a href="#-licença">Licença</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+  <a href="#-getting-started">Getting Started</a>
+</p>
 
-Este respositório contém a implementação da aplicação feita no curso de Angular. O bundle para começar o seu projeto está [aqui].
+<p align="center">
+ <img src="https://img.shields.io/static/v1?label=PRs&message=welcome!&color=fc6f03&labelColor=000000%22%20alt=%22PRs%20Welcome!" />
 
-[aqui]: https://github.com/cod3rcursos/meat-app-starter
+  <img alt="License" src="https://img.shields.io/static/v1?label=license&message=MIT&color=fc6f03&labelColor=000000">
+</p>
 
-## 1. Passos para começar
+<br>
 
-### Instalando as Dependências
+<p align="center">
+  <img alt="preview of application" src=".github/preview.gif" width="100%">
+</p>
 
-`npm install`
+## 🚀 Tecnologias
+
+Esse projeto foi desenvolvido com as seguintes tecnologias:
+
+- Angular
+- Bootstrap
+
+Bibliotecas
+
+- [Google Fonts](https://fonts.google.com/)
+- [Icomoon](https://icomoon.io/)
+
+## 💻 Projeto
+
+Aplicação de delivery de comida desenvolvida no framework Angular. Possui autenticação via email e senha com validadores na própria API da aplicação.
+
+## 📝 Licença
+
+Esse projeto está sob a licença MIT. Veja o arquivo [LICENSE](.github/LICENSE.md) para mais detalhes.
+
+## ▶ Getting Started
 
 ### Inicializando o Servidor
 
 `ng serve` ou `npm start`
-
-## 2. Iniciando o Backend
 
 ### Instalando o json-server
 
@@ -23,15 +50,3 @@ Este respositório contém a implementação da aplicação feita no curso de An
 ### Iniciando o serviço (raiz da aplicação)
 
 `json-server db.json`
-
-## Goodies
-
-Expressões regulares usadas na validação de formulários
-
-### Email Regex
-
-`/^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i`
-
-### Number Regex
-
-`/^[0-9]*$/`

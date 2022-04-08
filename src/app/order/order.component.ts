@@ -1,12 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import {FormGroup, FormBuilder, Validators, AbstractControl} from '@angular/forms'
+import { Router } from '@angular/router';
+import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms';
 
-import {Router} from '@angular/router'
+import { RadioOption } from 'app/shared/radio/radio-option.model';
+import { OrderService } from './order.service';
+import { CartItem } from 'app/restaurant-detail/shopping-cart/cart-item.model';
+import { Order, OrderItem } from './order.model';
 
-import {RadioOption} from '../shared/radio/radio-option.model'
-import {OrderService} from './order.service'
-import {CartItem} from '../restaurant-detail/shopping-cart/cart-item.model'
-import {Order, OrderItem} from "./order.model"
+import 'rxjs/add/operator/do'
 
 @Component({
   selector: 'mt-order',
@@ -22,15 +23,15 @@ export class OrderComponent implements OnInit {
 
   delivery: number = 8
 
+  orderId: string
+
   paymentOptions: RadioOption[] = [
     {label: 'Dinheiro', value: 'MON'},
     {label: 'Cartão de Débito', value: 'DEB'},
-    {label: 'Cartão Refeição', value: 'REF'}
+    {label: 'Cartão de Refeição', value: 'REF'}
   ]
 
-  constructor(private orderService: OrderService,
-              private router: Router,
-              private formBuilder: FormBuilder) { }
+  constructor(private orderService: OrderService, private router: Router, private formBuilder: FormBuilder) { }
 
   ngOnInit() {
     this.orderForm = this.formBuilder.group({
@@ -47,12 +48,15 @@ export class OrderComponent implements OnInit {
   static equalsTo(group: AbstractControl): {[key:string]: boolean} {
     const email = group.get('email')
     const emailConfirmation = group.get('emailConfirmation')
-    if(!email || !emailConfirmation){
+
+    if (!email || !emailConfirmation) {
       return undefined
     }
-    if(email.value !== emailConfirmation.value){
+
+    if (email.value !== emailConfirmation.value) {
       return {emailsNotMatch:true}
     }
+
     return undefined
   }
 
@@ -64,27 +68,32 @@ export class OrderComponent implements OnInit {
     return this.orderService.cartItems()
   }
 
-  increaseQty(item: CartItem){
+  increaseQty(item: CartItem) {
     this.orderService.increaseQty(item)
   }
 
-  decreaseQty(item: CartItem){
+  decreaseQty(item: CartItem) {
     this.orderService.decreaseQty(item)
   }
 
-  remove(item: CartItem){
+  remove(item: CartItem) {
     this.orderService.remove(item)
   }
 
-  checkOrder(order: Order){
+  isOrderCompleted(): boolean {
+    return this.orderId !== undefined
+  }
+
+  checkOrder(order: Order) {
     order.orderItems = this.cartItems()
-      .map((item:CartItem)=>new OrderItem(item.quantity, item.menuItem.id))
-    this.orderService.checkOrder(order)
-      .subscribe( (orderId: string) => {
-        this.router.navigate(['/order-summary'])
-        this.orderService.clear()
+      .map((item: CartItem) => new OrderItem(item.quantity, item.menuItem.id))
+    this.orderService.checkOrder(order).do((orderId: string) => {
+      this.orderId = orderId
+    }).subscribe((orderId: string) => {
+      this.router.navigate(['/order-summary'])
+      console.log(`Compra conluída ${orderId}`);
+      this.orderService.clear()
     })
-    console.log(order)
   }
 
 }
