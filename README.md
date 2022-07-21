@@ -22,6 +22,7 @@
 Esse projeto foi desenvolvido com as seguintes tecnologias:
 
 - Angular
+- TypeScript
 - Bootstrap
 
 Bibliotecas
@@ -31,7 +32,7 @@ Bibliotecas
 
 ## 💻 Projeto
 
-Aplicação de delivery de comida desenvolvida no framework Angular. Possui autenticação via email e senha com validadores na própria API da aplicação.
+Aplicação de delivery de comida desenvolvida com Angular. Possui autenticação via email e senha com validadores na API da aplicação.
 
 ## 📝 Licença
 
